@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogly{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a> -->
+        <a class="nav-item nav-link" href="/users">Users</a>
+        <a class="nav-item nav-link" href="/tags">Tags</a>
+      </div>
+    </div>
+  </nav>
+
+<h1 class="ml-3">Blogly Recent Posts</h1>
+
+{% for post in posts %}
+<h2 class="mt-4 ml-3">
+    <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+</h2>
+<p class="ml-3">{{ post.content }}</p>
+<p class="ml-3">
+    <small>By {{ post.users.full_name }} on {{ post.friendly_date }}</small>
+</p>
+
+{% if post.tags %}
+<p class="ml-3">
+    <b>Tags:</b>
+    {% for tag in post.tags %}
+    <a href="/tags/{{ tag.id }}"><i class="badge badge-primary">{{ tag.name }}</i></a>
+    {% endfor %}
+</p>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
