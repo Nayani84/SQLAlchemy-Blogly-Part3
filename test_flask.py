@@ -61,10 +61,11 @@ class UserViewsTestCase(TestCase):
 
         with app.test_client() as client:
             resp = client.get('/')
+            html=resp.get_data(as_text=True)
 
-            self.assertEqual(resp.status_code, 302)
-            self.assertEqual(resp.location, '/users')
-
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('<h1 class="ml-3">Blogly Recent Posts</h1>', html)
+            
 ################################################ Users Route ################################################
 
     def test_list_users(self):
